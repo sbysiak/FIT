@@ -1,0 +1,280 @@
+#include "Riostream.h"
+
+int ReadTree2(){
+ 
+  gStyle->SetTitleOffset(1.4,"Y");
+  TFile *f = new TFile("2019MuonTestData.root");
+  TTree *t1 = (TTree*)f->Get("RawDataTree");
+  struct main{
+    float Amplitude;
+    float Time;
+    float Time_pol1;
+    float Time_pol3;
+    float ZeroLevel;
+    float ZeroLevelRMS;
+    float time_peak;
+    float time_begin;
+    float time_end;
+    float time_front_end;
+    float time_back_begin;
+    float Charge_GATE;
+  };
+  main main_2158_1;
+  main main_2158_2;
+  main main_2158_3;
+  main main_2158_4;
+  main main_2159_1;
+  main main_2159_2;
+  main main_2159_3;
+  main main_2159_4;
+  main main_2154_1;
+  main main_2154_2;
+  main main_2154_3;
+  main main_2154_4;
+  main main_2156_1;
+  main main_2156_2;
+  main main_2156_3;
+  main main_2156_4;
+  main main_2158_1_main_2156_1;
+  main main_2158_1_main_2154_1;
+  main main_2159_1_main_2156_1;
+  main main_2159_1_main_2154_1;
+  main main_2159_1_Time_pol1;
+  main main_2159_2_Time_pol1;
+  main main_2159_3_Time_pol1;
+  main main_2159_4_Time_pol1;
+
+  t1->SetBranchAddress("main_2158_1",&main_2158_1);
+  TH1F *hmain_2158_1 = new TH1F("hmain_2158_1","amplitude 2158.1",500,0.0,500);
+  t1->SetBranchAddress("main_2158_2",&main_2158_2);
+  TH1F *hmain_2158_2 = new TH1F("hmain_2158_2","amplitude 2158.2",500,0.0,500);
+  t1->SetBranchAddress("main_2158_3",&main_2158_3);
+  TH1F *hmain_2158_3 = new TH1F("hmain_2158_3","amplitude 2158.3",500,0.0,500);
+  t1->SetBranchAddress("main_2158_4",&main_2158_4);
+  TH1F *hmain_2158_4 = new TH1F("hmain_2158_4","amplitude 2158.4",500,0.0,500);
+  t1->SetBranchAddress("main_2159_1",&main_2159_1);
+  TH1F *hmain_2159_1 = new TH1F("hmain_2159_1","amplitude 2159.1",100,0.0,500);
+  t1->SetBranchAddress("main_2159_2",&main_2159_2);
+  TH1F *hmain_2159_2 = new TH1F("hmain_2159_2","amplitude 2159.2",500,0.0,500);
+  t1->SetBranchAddress("main_2159_3",&main_2159_3);
+  TH1F *hmain_2159_3 = new TH1F("hmain_2159_3","amplitude 2159.3",500,0.0,500);
+  t1->SetBranchAddress("main_2159_4",&main_2159_4);
+  TH1F *hmain_2159_4 = new TH1F("hmain_2159_4","amplitude 2159.4",500,0.0,500);
+  t1->SetBranchAddress("main_2154_1",&main_2154_1);
+  TH1F *hmain_2154_1 = new TH1F("hmain_2154_1","amplitude 2154.1",500,0.0,500);
+  t1->SetBranchAddress("main_2154_2",&main_2154_2);
+  TH1F *hmain_2154_2 = new TH1F("hmain_2154_2","amplitude 2154.2",500,0.0,500);
+  t1->SetBranchAddress("main_2154_3",&main_2154_3);
+  TH1F *hmain_2154_3 = new TH1F("hmain_2154_3","amplitude 2154.3",500,0.0,500);
+  t1->SetBranchAddress("main_2154_4",&main_2154_4);
+  TH1F *hmain_2154_4 = new TH1F("hmain_2154_4","amplitude 2154.4",500,0.0,500);
+  t1->SetBranchAddress("main_2156_1",&main_2156_1);
+  TH1F *hmain_2156_1 = new TH1F("hmain_2156_1","amplitude 2156.1",500,0.0,500);
+  t1->SetBranchAddress("main_2156_2",&main_2156_2);
+  TH1F *hmain_2156_2 = new TH1F("hmain_2156_2","amplitude 2156.2",500,0.0,500);
+  t1->SetBranchAddress("main_2156_3",&main_2156_3);
+  TH1F *hmain_2156_3 = new TH1F("hmain_2156_3","amplitude 2156.3",500,0.0,500);
+  t1->SetBranchAddress("main_2156_4",&main_2156_4);
+  TH1F *hmain_2156_4 = new TH1F("hmain_2156_4","amplitude 2156.4",500,0.0,500);
+
+  TH2F *hmain_2158_1_main_2156_1 = new TH2F("hmain_2158_1_main_2156_1","amplitude 2158.1 v. 2156.1",150,0.0,300,150,0.0,300);
+  TH2F *hmain_2158_1_main_2154_1 = new TH2F("hmain_2158_1_main_2154_1","amplitude 2158.1 v. 2154.1",150,0.0,300,150,0.0,300);
+  TH2F *hmain_2159_1_main_2156_1 = new TH2F("hmain_2159_1_main_2156_1","amplitude 2159.1 v. 2156.1",150,0.0,300,150,0.0,300);
+  TH2F *hmain_2159_1_main_2154_1 = new TH2F("hmain_2159_1_main_2154_1","amplitude 2159.1 v. 2154.1",150,0.0,300,150,0.0,300);
+
+  TH2F *hmain_2159_1_Time_pol1 = new TH2F("hmain_2159_1_Time_pol1","amplitude 2159.1 v. Time Pol_1",150,0.0,300,150,0.0,300);
+  TH2F *hmain_2159_2_Time_pol1 = new TH2F("hmain_2159_2_Time_pol1","amplitude 2159.2 v. Time Pol_1",150,0.0,300,150,0.0,300);
+  TH2F *hmain_2159_3_Time_pol1 = new TH2F("hmain_2158_3_Time_pol1","amplitude 2159.3 v. Time Pol_1",150,0.0,300,150,0.0,300);
+  TH2F *hmain_2159_4_Time_pol1 = new TH2F("hmain_2158_4_Time_pol1","amplitude 2159.4 v. Time Pol_1",150,0.0,300,150,0.0,300);
+  
+  float f2159_cut1 = 0.0;
+  float f2159_cut2 = 50.0;
+  float f2159_cut3 = 5.0;
+  float f2158_cut1 = 20.0;
+  float f2156_cut1 = 5.0;
+  bool  b2156_cut_1;
+  bool  b2159_cut_1;
+  bool  b2159_cut_2;
+  bool  b2159_cut_3;
+  bool  b2158_cut_1;
+
+  t1->Print();
+ 
+  Int_t nentries = (Int_t)t1->GetEntries();
+
+  for (Int_t i=0; i<nentries; i++) {
+    t1->GetEntry(i);
+    
+  if(main_2156_1.Amplitude > f2156_cut1)
+    b2156_cut_1 = 1;
+  else
+    b2156_cut_1 = 0;
+
+  if(main_2159_1.Amplitude > f2159_cut1)
+    b2159_cut_1 = 1;
+  else
+    b2159_cut_1 = 0;
+
+  if((main_2158_1.Amplitude < f2158_cut1)&&(main_2158_2.Amplitude < f2158_cut1)&&(main_2158_3.Amplitude < f2158_cut1)&&(main_2158_4.Amplitude < f2158_cut1))
+    b2158_cut_1 = 1;
+  else
+    b2158_cut_1 = 0;
+
+  if(main_2159_3.Amplitude < f2159_cut2)
+    b2159_cut_2 = 1;
+  else
+    b2159_cut_2 = 0;
+
+  if((main_2159_2.Amplitude > f2159_cut3)&&(main_2159_4.Amplitude > f2159_cut3))
+    b2159_cut_3 = 1;
+  else
+    b2159_cut_3 = 0;
+
+  if(b2159_cut_1 && b2159_cut_2 && b2158_cut_1 && b2159_cut_3 && b2156_cut_1){
+    hmain_2158_1->Fill(main_2158_1.Amplitude);
+    hmain_2158_2->Fill(main_2158_2.Amplitude);
+    hmain_2158_3->Fill(main_2158_3.Amplitude);
+    hmain_2158_4->Fill(main_2158_4.Amplitude);
+    hmain_2159_1->Fill(main_2159_1.Amplitude);
+    hmain_2159_2->Fill(main_2159_2.Amplitude);
+    hmain_2159_3->Fill(main_2159_3.Amplitude);
+    hmain_2159_4->Fill(main_2159_4.Amplitude);
+    hmain_2154_1->Fill(main_2154_1.Amplitude);
+    hmain_2154_2->Fill(main_2154_2.Amplitude);
+    hmain_2154_3->Fill(main_2154_3.Amplitude);
+    hmain_2154_4->Fill(main_2154_4.Amplitude);
+    hmain_2156_1->Fill(main_2156_1.Amplitude);
+    hmain_2156_2->Fill(main_2156_2.Amplitude);
+    hmain_2156_3->Fill(main_2156_3.Amplitude);
+    hmain_2156_4->Fill(main_2156_4.Amplitude);
+
+    hmain_2158_1_main_2156_1->Fill(main_2156_1.Amplitude,main_2158_1.Amplitude);
+    hmain_2158_1_main_2154_1->Fill(main_2154_1.Amplitude,main_2158_1.Amplitude);
+    hmain_2159_1_main_2156_1->Fill(main_2156_1.Amplitude,main_2159_1.Amplitude);
+    hmain_2159_1_main_2154_1->Fill(main_2154_1.Amplitude,main_2159_1.Amplitude);
+
+    hmain_2159_1_Time_pol1->Fill(main_2159_1.Amplitude,main_2159_1.Time_pol1);
+    hmain_2159_2_Time_pol1->Fill(main_2159_2.Amplitude,main_2159_2.Time_pol1);
+    hmain_2159_3_Time_pol1->Fill(main_2159_3.Amplitude,main_2159_3.Time_pol1);
+    hmain_2159_4_Time_pol1->Fill(main_2159_4.Amplitude,main_2159_4.Time_pol1);
+    }
+  
+  }
+
+  hmain_2158_1->GetXaxis()->SetTitle("amplitude [mV]");    
+  hmain_2158_1->GetYaxis()->SetTitle("counts");
+  hmain_2158_2->GetXaxis()->SetTitle("amplitude [mV]");    
+  hmain_2158_2->GetYaxis()->SetTitle("counts");
+  hmain_2158_3->GetXaxis()->SetTitle("amplitude [mV]");    
+  hmain_2158_3->GetYaxis()->SetTitle("counts"); 
+  hmain_2158_4->GetXaxis()->SetTitle("amplitude [mV]");    
+  hmain_2158_4->GetYaxis()->SetTitle("counts"); 
+  hmain_2159_1->GetXaxis()->SetTitle("amplitude [mV]");    
+  hmain_2159_1->GetYaxis()->SetTitle("counts");  
+  hmain_2159_2->GetXaxis()->SetTitle("amplitude [mV]");    
+  hmain_2159_2->GetYaxis()->SetTitle("counts"); 
+  hmain_2159_3->GetXaxis()->SetTitle("amplitude [mV]");    
+  hmain_2159_3->GetYaxis()->SetTitle("counts"); 
+  hmain_2159_4->GetXaxis()->SetTitle("amplitude [mV]");    
+  hmain_2159_4->GetYaxis()->SetTitle("counts");  
+  hmain_2154_1->GetXaxis()->SetTitle("amplitude [mV]");    
+  hmain_2154_1->GetYaxis()->SetTitle("counts"); 
+  hmain_2154_2->GetXaxis()->SetTitle("amplitude [mV]");    
+  hmain_2154_2->GetYaxis()->SetTitle("counts"); 
+  hmain_2154_3->GetXaxis()->SetTitle("amplitude [mV]");    
+  hmain_2154_3->GetYaxis()->SetTitle("counts"); 
+  hmain_2154_4->GetXaxis()->SetTitle("amplitude [mV]");    
+  hmain_2154_4->GetYaxis()->SetTitle("counts");
+  hmain_2156_1->GetXaxis()->SetTitle("amplitude [mV]");    
+  hmain_2156_1->GetYaxis()->SetTitle("counts");
+  hmain_2156_2->GetXaxis()->SetTitle("amplitude [mV]");    
+  hmain_2156_2->GetYaxis()->SetTitle("counts");
+  hmain_2156_3->GetXaxis()->SetTitle("amplitude [mV]");    
+  hmain_2156_3->GetYaxis()->SetTitle("counts"); 
+  hmain_2156_4->GetXaxis()->SetTitle("amplitude [mV]");    
+  hmain_2156_4->GetYaxis()->SetTitle("counts");
+
+  hmain_2158_1_main_2156_1->GetXaxis()->SetTitle("2156.1");
+  hmain_2158_1_main_2156_1->GetYaxis()->SetTitle("2158.1");
+  hmain_2158_1_main_2154_1->GetXaxis()->SetTitle("2154.1");
+  hmain_2158_1_main_2154_1->GetYaxis()->SetTitle("2158.1");
+  hmain_2159_1_main_2156_1->GetXaxis()->SetTitle("2156.1");
+  hmain_2159_1_main_2156_1->GetYaxis()->SetTitle("2159.1");
+  hmain_2159_1_main_2154_1->GetXaxis()->SetTitle("2154.1");
+  hmain_2159_1_main_2154_1->GetYaxis()->SetTitle("2159.1");
+
+  gStyle->SetOptFit(1111);
+  gStyle->SetOptLogy(1);
+  //Begin->SetOptLogy();
+  TCanvas *c1 = new TCanvas("c1","c1",900,900);
+  
+  c1->Divide(4,4);
+  c1->cd(1);  
+  hmain_2158_1->Draw();
+  c1->cd(2);  
+  hmain_2158_2->Draw();
+  c1->cd(3); 
+  hmain_2158_3->Draw();
+  c1->cd(4); 
+  hmain_2158_4->Draw();
+  c1->cd(5); 
+  hmain_2159_1->Draw();
+  c1->cd(6); 
+  hmain_2159_2->Draw();
+  c1->cd(7); 
+  hmain_2159_3->Draw();
+  c1->cd(8); 
+  hmain_2159_4->Draw();
+  c1->cd(9); 
+  hmain_2154_1->Draw();
+  c1->cd(10); 
+  hmain_2154_2->Draw();
+  c1->cd(11); 
+  hmain_2154_3->Draw();
+  c1->cd(12); 
+  hmain_2154_4->Draw();
+  c1->cd(13); 
+  hmain_2156_1->Draw();
+  c1->cd(14); 
+  hmain_2156_2->Draw();
+  c1->cd(15);
+  hmain_2156_3->Draw();
+  c1->cd(16); 
+  hmain_2156_4->Draw();
+  //End->SetOptLogy();
+  gStyle->SetOptLogy(0);
+
+  gStyle->SetOptLogz(1);
+  //Begin->SetOptLogz();
+  TCanvas *c2 = new TCanvas("c2","c2",900,900);
+  
+  c2->Divide(2,2);
+  c2->cd(1);  
+  hmain_2158_1_main_2156_1->Draw("colz");
+  c2->cd(2);  
+  hmain_2158_1_main_2154_1->Draw("colz");
+  c2->cd(3);  
+  hmain_2159_1_main_2156_1->Draw("colz");
+  c2->cd(4);  
+  hmain_2159_1_main_2154_1->Draw("colz");
+  //End->SetOptLogz();
+  gStyle->SetOptLogz(0);
+
+  gStyle->SetOptLogz(1);
+  //Begin->SetOptLogz();
+  TCanvas *c3 = new TCanvas("c3","c3",900,900);
+  
+  c3->Divide(2,2);
+  c3->cd(1);  
+  hmain_2159_1_Time_pol1->Draw("colz");
+  c3->cd(2);  
+  hmain_2159_2_Time_pol1->Draw("colz");
+  c3->cd(3);  
+  hmain_2159_3_Time_pol1->Draw("colz");
+  c3->cd(4);  
+  hmain_2159_4_Time_pol1->Draw("colz");
+  //End->SetOptLogz();
+  gStyle->SetOptLogz(0);
+
+return(0);
+}

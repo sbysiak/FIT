@@ -1,0 +1,44 @@
+# specific
+*.copy
+*.txt
+*.cmd
+ARCHIVE/
+OUTPUTS/
+LOGS/
+ToDo
+test*
+tmp*
+notes-loose*
+*NOTES*
+*notes*
+*Notes*
+
+# archive
+*.zip
+
+# data
+*.csv
+*.dat
+*.root
+*.xml
+*.pickle
+*.dill
+
+# graphics
+*.png
+*.jpg
+
+# python / jupyter
+*ipynb_checkpoints*
+*.pyc
+
+# LaTeX
+*.log
+*.aux
+*.out
+*.gz
+*.bbl
+*.blg
+*.toc
+*.pdf
+

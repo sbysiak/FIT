@@ -102,7 +102,7 @@ int ReadTree2(TString fname,
   bool  btop1_cut_1    = 0; // if _1-4 <
 
 
-  t1->Print();
+  // t1->Print();
 
   Int_t nentries = (Int_t)t1->GetEntries();
   /********************* CUTS CHANGES ******************************/
@@ -274,13 +274,13 @@ int ReadTree2(TString fname,
   }
   if(MODE.EqualTo("LR")){     // fits on range moved left and right
      n_fit_iter = 3;
-     offset_magn = 10;
+     offset_magn = 15;
      fname_suffix = "LR";
      high_sign = +1;
   }
   if(MODE.EqualTo("WN")){     // fits on wider and more narrow range
      n_fit_iter = 3;
-     offset_magn = 10;
+     offset_magn = 15;
      fname_suffix = "WN";
      high_sign = -1;
   }
@@ -294,10 +294,11 @@ int ReadTree2(TString fname,
       }
 
 
-      Double_t q[6]  = {0.10, 0.20, 0.5, 0.75, 0.9, 0.95};
-      const char qt[6][10] = {"0.25", "0.5", "0.75", "0.90", "0.95"};
+      Double_t q[6]  = {0.10, 0.15, 0.5, 0.75, 0.92, 0.95};
+      // const char qt[6][10] = {"0.25", "0.5", "0.75", "0.90", "0.95"};
       Double_t qv[6];
       h_quantiles->GetQuantiles(n, qv, q);
+      printf("signal only: mean = %f std = %f\n\n", h_quantiles->GetMean(), h_quantiles->GetStdDev());
 
       gStyle->SetOptFit(1111);
       gStyle->SetOptLogy(1);
@@ -307,10 +308,19 @@ int ReadTree2(TString fname,
       // low and high different sign = more narrow - wider
       // change file names accordingly
       float offset = (iter-1)*offset_magn;
-      float low = TMath::Max(qv[1], 30.0) + offset;
-      float high = qv[4] + high_sign*offset;
-      TFitResultPtr fit = h_to_fit->Fit("gaus", "IS", "", low, high);
-      // fit = ptr.Get();
+      float range_low = TMath::Max(qv[1], 30.0) + offset;
+      float range_high = qv[4] + high_sign*offset;
+      TF1 *mygaus = new TF1("mygaus", "gaus");
+      float mean_lim_lo = qv[1];
+      float mean_lim_hi = qv[5];
+      float std_lim_lo  = h_quantiles->GetStdDev()/3;
+      float std_lim_hi  = h_quantiles->GetStdDev()*1.2;
+      mygaus->SetParameter(1, (mean_lim_lo+mean_lim_hi)/2);
+      mygaus->SetParLimits(1, mean_lim_lo, mean_lim_hi);
+      mygaus->SetParameter(2, (std_lim_lo+std_lim_hi)/2);
+      mygaus->SetParLimits(2, std_lim_lo, std_lim_hi);
+      TFitResultPtr fit_ptr = h_to_fit->Fit("mygaus", "ISB", "", range_low, range_high);
+      TFitResult* fit = fit_ptr.Get();
 
       TCanvas* c_fit = new TCanvas("c_fit", "c_fit", 600, 600);
       h_to_fit->Draw();
@@ -321,12 +331,33 @@ int ReadTree2(TString fname,
       for(int i=0; i<n; i++){
           Double_t v = qv[i];
           l->DrawLine(v, 20, v, 30);
-          t->DrawText(v-10, 10 + TMath::Power(-1,i)*5, qt[i]);
+          // t->DrawText(v-10, 10 + TMath::Power(-1,i)*5, qt[i]);
           // l.Draw();
           // t.Draw();
       }
-      l->DrawLine(low, 25, low, 35);
-      l->DrawLine(high, 25, high, 35);
+      l->DrawLine(range_low, 25, range_low, 35);
+      l->DrawLine(range_high, 25, range_high, 35);
+
+      for(int par=0; par<3; par++){
+          float val=0;
+          double lim_lo=0;
+          double lim_hi=0;
+          if(fit->IsParameterBound(par)){
+              fit->ParameterBounds(par, lim_lo, lim_hi);
+              // printf("\nyes, parameter %d was bounded\n", par);
+              val = fit->Parameter(par);
+              if(TMath::Abs(lim_lo - val) < 1e-4 || TMath::Abs(lim_hi - val) < 1e-4){
+                  printf("\n\n\nFIT HIT THE LIMIT !!!\n\n\n");
+                  l->SetLineColor(kRed);
+                  l->SetLineWidth(10);
+                  l->DrawLine(400+par*25, 2, 450+par*25, 4);
+                  l->DrawLine(400+par*25, 4, 450+par*25, 2);
+              }
+          }
+          // else{
+          //     printf("\nNo, parameter %d was not bounded\n", par);
+          // }
+      }
 
       // c_fit->SaveAs("fit.png");
       c_fit->SaveAs("fits/cfit_"+fout_core+"_"+nameTop1+"_"+nameTop2+"_"+nameBottom1+"_"+nameBottom2+"_q"+quadrant+"_"+fname_suffix+to_string(iter)+".pdf");

@@ -12,9 +12,12 @@ notes-loose*
 *NOTES*
 *notes*
 *Notes*
+*.ods
+geometry_comparison/data
 
 # archive
 *.zip
+*.7z
 
 # data
 *.csv
